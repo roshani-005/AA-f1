@@ -10,7 +10,7 @@ const ScanForm = ({ setResults, setLoading }) => {
     setResults(null);
 
     try {
-      const res = await axios.get(`http://localhost:5000/scan?url=${url}`);
+      const res = await axios.get("https://aa-backend-1.onrender.com/");
       setResults(res.data);
     } catch (err) {
       alert("Error scanning the website");
