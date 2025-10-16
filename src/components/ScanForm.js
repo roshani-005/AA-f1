@@ -10,8 +10,14 @@ const ScanForm = ({ setResults, setLoading }) => {
     setResults(null);
 
     try {
-      const res = await axios.get("https://aa-backend-1.onrender.com/");
-      setResults(res.data);
+      // 👇 send URL to backend
+      const res = await axios.get(`https://aa-backend-1.onrender.com/scan?url=${url}`);
+
+      // 👇 make sure violations is always an array
+      setResults({
+        ...res.data,
+        violations: res.data.violations || [],
+      });
     } catch (err) {
       alert("Error scanning the website");
     }
@@ -39,3 +45,4 @@ const ScanForm = ({ setResults, setLoading }) => {
 };
 
 export default ScanForm;
+
