@@ -27,7 +27,7 @@ const Results = ({ results }) => {
         Total Issues Found: <strong>{results.issues}</strong>
       </p>
 
-      {/* ✅ Button placed inside the return */}
+      {/* ✅ Button */}
       <button
         onClick={downloadReport}
         className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 mt-4"
@@ -35,33 +35,35 @@ const Results = ({ results }) => {
         📥 Download Report
       </button>
 
-      {results.violations.map((v, idx) => (
-        <div
-          key={idx}
-          className={`border-l-4 p-4 rounded shadow ${
-            impactColors[v.impact] || "bg-gray-100 border-gray-300"
-          }`}
-        >
-          <h3 className="font-semibold text-lg">{v.description}</h3>
-          <p className="font-medium">
-            Impact: <span className="capitalize">{v.impact}</span>
-          </p>
-          <p>
-            Help:{" "}
-            <a
-              href={v.helpUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="text-blue-600 underline"
-            >
-              Click here
-            </a>
-          </p>
-          <p className="mt-2 text-sm">
-            <strong>HTML affected:</strong> {v.nodes[0]?.html}
-          </p>
-        </div>
-      ))}
+      {/* ✅ Safe check added here */}
+      {Array.isArray(results.violations) &&
+        results.violations.map((v, idx) => (
+          <div
+            key={idx}
+            className={`border-l-4 p-4 rounded shadow ${
+              impactColors[v.impact] || "bg-gray-100 border-gray-300"
+            }`}
+          >
+            <h3 className="font-semibold text-lg">{v.description}</h3>
+            <p className="font-medium">
+              Impact: <span className="capitalize">{v.impact}</span>
+            </p>
+            <p>
+              Help:{" "}
+              <a
+                href={v.helpUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-600 underline"
+              >
+                Click here
+              </a>
+            </p>
+            <p className="mt-2 text-sm">
+              <strong>HTML affected:</strong> {v.nodes[0]?.html}
+            </p>
+          </div>
+        ))}
     </div>
   );
 };
